@@ -36,7 +36,7 @@ const send=async ()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res=await send();
-    console.log('server response', res.data);
+    
     setSubmitted(true);
   };
   
