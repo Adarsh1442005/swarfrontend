@@ -43,7 +43,7 @@ const send=async ()=>{
     message: '',
     avatar: '',
   });
-  prompt("We will be contact you for further");
+  alert("We will be contact you for further");
     
     setSubmitted(true);
 
