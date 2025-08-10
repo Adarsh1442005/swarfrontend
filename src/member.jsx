@@ -36,8 +36,17 @@ const send=async ()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res=await send();
+    setFormData({
+    name: '',
+    email: '',
+    instrument: '',
+    message: '',
+    avatar: '',
+  });
+  prompt("We will be contact you for further");
     
     setSubmitted(true);
+
   };
   
 
