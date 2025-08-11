@@ -1,11 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import pic from './Abhinav.jpg';
+import pic2 from './avani.jpg';
+import pic3 from './mic.jpg';
 
 const presidents = [
-  { name: 'Adarsh Pandey', role: 'Technical Lead, Instrumentalist & Voclaist' },
+  { name: 'Adarsh Pandey', role: 'Technical Lead, Instrumentalist & Voclaist',image:pic3 },
   { name: 'Riya', role: 'Vocalist & Event Curator' },
-  { name: 'Abhinav', role: 'Instrumentalist & Outreach Coordinator' },
-  { name: 'Avani', role: 'Vocalist & Event Curator' },
+  { name: 'Abhinav', role: 'Instrumentalist & Outreach Coordinator', image:pic  },
+  { name: 'Avani', role: 'Vocalist & Event Curator', image:pic2 },
   { name: 'Navonil', role: 'Vocalist, Community Builder & Performer' },
 ];
 
@@ -33,17 +36,25 @@ export function SwarHomePage() {
       </section>
 
       {/* Presidents Section */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">Meet the Presidents</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {presidents.map((person) => (
-            <div key={person.name} className="bg-gray-100 p-6 rounded shadow hover:shadow-lg transition">
-              <h3 className="text-xl font-semibold mb-2">{person.name}</h3>
-              <p className="text-gray-600">{person.role}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+     <section className="py-16 px-6 max-w-6xl mx-auto">
+  <h2 className="text-3xl font-bold text-center mb-10">Meet the Presidents</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    {presidents.map((person) => (
+      <div key={person.name} className="bg-gray-100 p-6 rounded shadow hover:shadow-lg transition text-center">
+        {person.image && (
+          <img
+            src={person.image}
+            alt={person.name}
+            className="w-24 h-24 mx-auto rounded-full object-cover mb-4"
+          />
+        )}
+        <h3 className="text-xl font-semibold mb-2">{person.name}</h3>
+        <p className="text-gray-600">{person.role}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
 
       {/* Mission Section */}
       <section className="bg-gray-50 py-16 px-6">
