@@ -21,6 +21,9 @@ export function SwarHomePage() {
   const music=()=>{
     navigate('/music');
   }
+  const perform=()=>{
+    navigate("/perform");
+  }
 
   console.log("rendering router");
 
@@ -30,7 +33,7 @@ export function SwarHomePage() {
       <section className="ml-20 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-20 px-6 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Swar</h1>
         <p className="text-lg md:text-xl mb-6">Where Music Finds Its Voice</p>
-        <button className="bg-white text-purple-600 font-semibold px-6 py-2 rounded hover:bg-gray-100 transition">
+        <button onClick={perform} className="bg-white text-purple-600 font-semibold px-6 py-2 rounded hover:bg-gray-100 transition">
           Explore Performances
         </button>
       </section>
