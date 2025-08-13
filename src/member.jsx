@@ -30,7 +30,7 @@ const send=async ()=>{
       try {
     const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
     if(response.data.code===1){
-      let code=prompt("enter the verification code sent to your registerd mail-id");
+      let code=await prompt("enter the verification code sent to your registerd mail-id");
       
       const res=await axios.post('https://swarbackend.onrender.com/verify',{code});
       alert(res.data.text);
