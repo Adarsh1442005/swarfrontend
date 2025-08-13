@@ -29,6 +29,15 @@ export function MembershipForm() {
 const send=async ()=>{
       try {
     const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
+    if(response.data.code===1){
+      let str=prompt("enter the verification code sent to your registerd mail-id");
+      let num=parseInt(str);
+      const res=await axios.post('https://swarbackend.onrender.com/verify',{num});
+      alert(res.data.text);
+      return;
+
+
+    }
     return response;
   } catch (error) {
     console.error('Submission failed:', error.message);
@@ -38,6 +47,7 @@ const send=async ()=>{
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
     const res=await send();
     setFormData({
     name: '',
@@ -49,9 +59,18 @@ const send=async ()=>{
     message: '',
     
   });
-  alert("We will be contact you for further");
+  setSubmitted(true);
+ return  alert("We will be contact you for further");
+  
+
     
-    setSubmitted(true);
+    
+}
+catch(error){
+  alert("there is error in resolving please try after sometime");
+  return;
+
+}
 
   };
   
