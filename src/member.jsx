@@ -14,8 +14,11 @@ export function MembershipForm() {
     name: '',
     email: '',
     instrument: '',
+    Branch:'',
+    year:'',
+    contact:'',
     message: '',
-    avatar: '',
+    
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -40,8 +43,11 @@ const send=async ()=>{
     name: '',
     email: '',
     instrument: '',
+    contact:'',
+    year:'',
+    Branch:'',
     message: '',
-    avatar: '',
+    
   });
   alert("We will be contact you for further");
     
@@ -68,41 +74,59 @@ const send=async ()=>{
         )}
 
         <div className="space-y-5">
-          <InputField
-            label="🎤 Full Name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <InputField
-            label="📧 Email Address"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <InputField
-            label="🎸 Primary Instrument / Role"
-            name="instrument"
-            required
-            value={formData.instrument}
-            onChange={handleChange}
-          />
-          <InputField
-            label="🖼️ Avatar URL (optional)"
-            name="avatar"
-            value={formData.avatar}
-            onChange={handleChange}
-          />
-          <TextAreaField
-            label="💬 Why do you want to join Swar?"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-          />
-        </div>
+  <InputField
+    label="🎤 Full Name"
+    name="name"
+    value={formData.name}
+    onChange={handleChange}
+    required
+  />
+  <InputField
+    label="📧 Email Address"
+    name="email"
+    type="email"
+    value={formData.email}
+    onChange={handleChange}
+    required
+  />
+  <InputField
+    label="📞 Contact Number"
+    name="contact"
+    type="tel"
+    value={formData.contact}
+    onChange={handleChange}
+    required
+  />
+  <InputField
+    label="🏫 Branch"
+    name="Branch"
+    type="text"
+    value={formData.Branch}
+    onChange={handleChange}
+    required
+  />
+  <InputField
+    label="📅 Year of Study"
+    name="year"
+    type="text"
+    value={formData.year}
+    onChange={handleChange}
+    required
+  />
+  <InputField
+    label="🎸 Primary Instrument / Role"
+    name="instrument"
+    value={formData.instrument}
+    onChange={handleChange}
+    required
+  />
+  <TextAreaField
+    label="💬 Why do you want to join Swar?"
+    name="message"
+    value={formData.message}
+    onChange={handleChange}
+  />
+</div>
 
         <button
           type="submit"
