@@ -31,14 +31,14 @@ const send=async ()=>{
     const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
     if(response.data.code===1){
       let str=prompt("enter the verification code sent to your registerd mail-id");
-      let num=parseInt(str);
-      const res=await axios.post('https://swarbackend.onrender.com/verify',{num});
+      let code=parseInt(str);
+      const res=await axios.post('https://swarbackend.onrender.com/verify',{code});
       alert(res.data.text);
       return;
 
 
     }
-    return response;
+    
   } catch (error) {
     console.error('Submission failed:', error.message);
   }
