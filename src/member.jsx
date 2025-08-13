@@ -22,33 +22,27 @@ export function MembershipForm() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [code, setCode] = useState('');
+const [awaitingOtp, setAwaitingOtp] = useState(false);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-const send=async ()=>{
-      try {
+const send = async () => {
+  try {
     const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
-    if(response.data.code===1){
-      let code= prompt("enter the verification code sent to your registerd mail-id");
-      
-      const res=await axios.post('https://swarbackend.onrender.com/verify',{code});
-      alert(res.data.text);
-    
-
-
+    if (response.data.code === 1) {
+      setAwaitingOtp(true); // Show OTP input
+    } else if (response.data.code === 0) {
+      alert("User already exists");
     }
-    else if(response.data.code===0){
-      alert("user already exist");
-
-    }
-    
   } catch (error) {
     console.error('Submission failed:', error.message);
   }
+};
+let check=0;
 
-
-  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
@@ -63,7 +57,13 @@ const send=async ()=>{
     message: '',
     
   });
+  if(code==1){
   setSubmitted(true);
+  }
+
+  else{
+    return alert("try again !!!");
+  }
  
   
 
@@ -77,6 +77,31 @@ catch(error){
 }
 
   };
+
+  const verifyOtp = async () => {
+  try {
+    const res = await axios.post('https://swarbackend.onrender.com/verify', {
+      code });
+      alert(res.data.text);
+    
+    setFormData({
+      name: '',
+      email: '',
+      instrument: '',
+      contact: '',
+      year: '',
+      Branch: '',
+      message: '',
+    });
+    
+    setAwaitingOtp(false);
+    check=res.data.code;
+
+    setOtp('');
+  } catch (error) {
+    alert("OTP verification failed. Please try again.");
+  }
+};
   
 
   return (
@@ -159,6 +184,25 @@ catch(error){
         </button>
       </form>
     </section>
+    {awaitingOtp && (
+  <div className="mt-6">
+    <label className="block text-sm font-medium text-gray-700">Enter OTP</label>
+    <input
+      type="text"
+      value={otp}
+      onChange={(e) => setOtp(e.target.value)}
+      className="mt-1 block w-full border rounded px-3 py-2"
+    />
+    <button
+      type="button"
+      onClick={verifyOtp}
+      className="mt-2 bg-purple-600 text-white px-4 py-2 rounded"
+    >
+      Verify OTP
+    </button>
+  </div>
+)}
+
     
    
     </div>
