@@ -38,6 +38,10 @@ const send=async ()=>{
 
 
     }
+    else if(response.data.code===0){
+      alert("user already exist");
+
+    }
     
   } catch (error) {
     console.error('Submission failed:', error.message);
