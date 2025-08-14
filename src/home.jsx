@@ -22,7 +22,7 @@ export function SwarHomePage() {
   const music = () => navigate('/music');
   const perform = () => navigate('/perform');
   const admin=()=>{
-    navigate('/data');
+    navigate('/admin');
   }
 
   return (
