@@ -5,12 +5,14 @@ import pic2 from './avani.jpg';
 import pic3 from './mic.jpg';
 import pic4 from './riya.jpg';
 import navonil from './navonil.jpg';
+import mono from './mono.jpg';
 const presidents = [
   { name: 'Adarsh Pandey', role: 'Technical Lead, Instrumentalist & Vocalist', image: pic3 },
   { name: 'Riya', role: 'Vocalist & Event Curator' ,image:pic4 },
   { name: 'Abhinav', role: 'Instrumentalist & Outreach Coordinator', image: pic },
   { name: 'Avani', role: 'Vocalist & Event Curator', image: pic2 },
   { name: 'Navonil', role: 'Vocalist, Community Builder & Performer',image:navonil },
+  {nmae:'Monoshwini',role:"Instrumentalist(first feamle Guitarist of Swar),Community build",image:mono}
 ];
 
 export function SwarHomePage() {

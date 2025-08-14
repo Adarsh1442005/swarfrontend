@@ -29,25 +29,16 @@ const [awaitingOtp, setAwaitingOtp] = useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-const send = async () => {
+const send = async (e) => {
+  e.preventDefault();
   try {
     const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
     if (response.data.code === 1) {
       setAwaitingOtp(true); // Show OTP input
+      alert("please enter the otp !!!");
     } else if (response.data.code === 0) {
-      alert("User already exists");
-    }
-  } catch (error) {
-    console.error('Submission failed:', error.message);
-  }
-};
-let check=0;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try{
-    const res=await send();
-    setFormData({
+      alert("User already exists your credential we have already contact to the owner for further changes!!");
+       setFormData({
     name: '',
     email: '',
     instrument: '',
@@ -57,26 +48,13 @@ let check=0;
     message: '',
     
   });
-  if(code==1){
-  setSubmitted(true);
+    }
+  } catch (error) {
+    console.error('Submission failed:', error.message);
   }
+};
 
-  else{
-    return alert("try again !!!");
-  }
- 
-  
 
-    
-    
-}
-catch(error){
-  alert("there is error in resolving please try after sometime");
-  return;
-
-}
-
-  };
 
   const verifyOtp = async () => {
   try {
@@ -95,9 +73,10 @@ catch(error){
     });
     
     setAwaitingOtp(false);
-    check=res.data.code;
+    setSubmitted(true);
+    
 
-    setOtp('');
+    setCode('');
   } catch (error) {
     alert("OTP verification failed. Please try again.");
   }
@@ -108,7 +87,7 @@ catch(error){
     <div className="flex flex-row space-x-30">
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-pink-100 to-yellow-100 px-6 py-12">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={send}
         className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-xl border border-purple-300 animate-fade-in"
       >
         <h2 className="text-4xl font-extrabold mb-6 text-center text-purple-700 tracking-tight">
@@ -189,8 +168,8 @@ catch(error){
     <label className="block text-sm font-medium text-gray-700">Enter OTP</label>
     <input
       type="text"
-      value={otp}
-      onChange={(e) => setOtp(e.target.value)}
+      value={code}
+      onChange={(e) => setCode(e.target.value)}
       className="mt-1 block w-full border rounded px-3 py-2"
     />
     <button
