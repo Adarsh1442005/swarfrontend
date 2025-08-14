@@ -4,6 +4,7 @@ import { SwarHomePage } from './home.jsx';
 import { MusicSubmit } from './Musicsubmission.jsx';
 import { AudioPlayer } from './listenaudio.jsx';
 import { VideoGallery } from './perfiormaces.jsx';
+import {MessagesTable} from './data.jsx';
 
 export function App() {
   return (
@@ -13,6 +14,7 @@ export function App() {
       <Route path="/music" element={<MusicSubmit />}/> 
       <Route path="/listen" element={<AudioPlayer />} />
       <Route path="/perform" element={<VideoGallery />}/>
+      <Route path="/data" element={<MessagesTable/>}/>
     </Routes>
   );
 }
