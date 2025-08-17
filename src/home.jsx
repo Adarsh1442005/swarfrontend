@@ -32,6 +32,7 @@ export function SwarHomePage() {
     <div className="bg-white text-gray-800 font-sans">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-purple-600 to-pink-500 text-white py-20 px-6 text-center">
+        <div class="flex flex-row space-x-4">
         <button
             onClick={admin}
             className="bg-black-500 text-white px-5 py-2 rounded hover:bg-pink-600 transition w-full sm:w-auto"
@@ -44,6 +45,7 @@ export function SwarHomePage() {
           >
             adminB
           </button>
+          </div>
         <div className="container mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Swar</h1>
           <p className="text-lg md:text-xl mb-6">Where Music Finds Its Voice</p>
