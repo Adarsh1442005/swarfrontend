@@ -40,6 +40,7 @@ const send = async (e) => {
       alert("please enter the otp !!!");
     } else if (response.data.code === 0) {
       alert("User already exists your credential we have already contact to the owner for further changes!!");
+      setisloading(false);
        setFormData({
     name: '',
     email: '',
