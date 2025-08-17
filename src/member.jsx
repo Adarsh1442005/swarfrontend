@@ -25,6 +25,7 @@ export function MembershipForm() {
   const [code, setCode] = useState('');
 const [awaitingOtp, setAwaitingOtp] = useState(false);
 const[isloading,setisloading]=useState(false);
+const[isverifing,setisverifing]=useState(false);
 
 
   const handleChange = (e) => {
@@ -61,6 +62,7 @@ const send = async (e) => {
 
   const verifyOtp = async () => {
   try {
+    setisverifing(true);
     const res = await axios.post('https://swarbackend.onrender.com/verify', {
       code });
       alert(res.data.text);
@@ -74,6 +76,7 @@ const send = async (e) => {
       Branch: '',
       message: '',
     });
+    setisverifing(false);
     setisloading(false);
     
     setAwaitingOtp(false);
@@ -171,25 +174,31 @@ const send = async (e) => {
       </form>
     </section>
     {awaitingOtp && (
-  <div className="mt-6">
-    <label className="block text-sm font-medium text-gray-700">Enter OTP</label>
-    <input
-      type="text"
-      value={code}
-      onChange={(e) => setCode(e.target.value)}
-      className="mt-1 block w-full border rounded px-3 py-2"
-    />
-    <button
-      type="button"
-      onClick={verifyOtp}
-      className="mt-2 bg-purple-600 text-white px-4 py-2 rounded"
-    >
-      Verify OTP
-    </button>
-  </div>
-)}
+  <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-pink-100 to-yellow-100 px-6 py-12">
+    <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border border-purple-300 animate-fade-in">
+      <h3 className="text-2xl font-bold text-purple-700 mb-4 text-center"> OTP Verification</h3>
+      <p className="text-gray-600 mb-6 text-center">
+        We've sent a verification code to your email. Please enter it below to complete your registration.
+      </p>
 
-    
+      <input
+        type="text"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        placeholder="Enter OTP"
+        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-purple-50 mb-4"
+      />
+
+      <button
+        type="button"
+        onClick={verifyOtp}
+        className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 hover:shadow-lg transition duration-300"
+      >
+      {isverifing?"verifing...":"verify"}
+      </button>
+    </div>
+  </section>
+)}
    
     </div>
 
