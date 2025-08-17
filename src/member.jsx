@@ -24,6 +24,7 @@ export function MembershipForm() {
   const [submitted, setSubmitted] = useState(false);
   const [code, setCode] = useState('');
 const [awaitingOtp, setAwaitingOtp] = useState(false);
+const[isloading,setisloading]=useState(false);
 
 
   const handleChange = (e) => {
@@ -31,6 +32,7 @@ const [awaitingOtp, setAwaitingOtp] = useState(false);
   };
 const send = async (e) => {
   e.preventDefault();
+  setisloading(true);
   try {
     const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
     if (response.data.code === 1) {
@@ -71,6 +73,7 @@ const send = async (e) => {
       Branch: '',
       message: '',
     });
+    setisloading(false);
     
     setAwaitingOtp(false);
     setSubmitted(true);
@@ -159,7 +162,7 @@ const send = async (e) => {
           type="submit"
           className="mt-8 w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 hover:shadow-lg transition duration-300"
         >
-          ✨ Submit Application
+          {isloading ?"submitting...":"submit"}
         </button>
       </form>
     </section>
