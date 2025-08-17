@@ -77,12 +77,10 @@ const send = async (e) => {
     setisloading(false);
     
     setAwaitingOtp(false);
-    if(res.data.code===-1){
-      setSubmitted(false);
+    if(res.data.code===1){
+      setSubmitted(true);
     }
-    else{
-    setSubmitted(true);
-    }
+    
     
 
     setCode('');
