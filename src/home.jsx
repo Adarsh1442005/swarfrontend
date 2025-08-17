@@ -24,6 +24,9 @@ export function SwarHomePage() {
   const admin=()=>{
     navigate('/admin');
   }
+  const adminb=()=>{
+    navigate("/adminb");
+  }
 
   return (
     <div className="bg-white text-gray-800 font-sans">
@@ -31,9 +34,15 @@ export function SwarHomePage() {
       <section className="bg-gradient-to-r from-purple-600 to-pink-500 text-white py-20 px-6 text-center">
         <button
             onClick={admin}
-            className="bg-pink-500 text-white px-5 py-2 rounded hover:bg-pink-600 transition w-full sm:w-auto"
+            className="bg-black-500 text-white px-5 py-2 rounded hover:bg-pink-600 transition w-full sm:w-auto"
           >
-            admin
+            adminA
+          </button>
+          <button
+            onClick={adminb}
+            className="bg-black-500 text-white px-5 py-2 rounded hover:bg-pink-600 transition w-full sm:w-auto"
+          >
+            adminB
           </button>
         <div className="container mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Swar</h1>
