@@ -10,6 +10,7 @@ export const MusicSubmit = () => {
     consent: false,
     audio: null,
   });
+  const [isloading,setisloading]=useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -20,6 +21,7 @@ export const MusicSubmit = () => {
   };
 
   const handleSubmit = async (e) => {
+    setisloading(true);
     e.preventDefault();
 
     // Construct FormData for file upload
@@ -36,6 +38,7 @@ export const MusicSubmit = () => {
 
       if (res.ok) {
         alert('🎉 Music submitted successfully!');
+        setisloading(false);
         setFormData({
           name: '',
           email: '',
@@ -46,9 +49,11 @@ export const MusicSubmit = () => {
           audio: null,
         });
       } else {
+        setisloading(false);
         alert('❌ Submission failed. Try again.');
       }
     } catch (err) {
+      setisloading(true);
       console.error(err);
       alert('⚠️ Error submitting music.');
     }
@@ -135,7 +140,7 @@ export const MusicSubmit = () => {
         type="submit"
         className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
       >
-        Submit Music
+       {isloading?"submitting....":"submit music"}
       </button>
      
 
