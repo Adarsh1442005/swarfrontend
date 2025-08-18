@@ -7,11 +7,12 @@ import pic4 from './riya.jpg';
 import navonil from './navonil.jpg';
 import mono from './mono.jpg';
 const presidents = [
-  { name: 'Adarsh Pandey', role: 'Technical Lead, Instrumentalist & Vocalist', image: pic3 },
+  { name: 'Adarsh Pandey', role: 'Technical Lead, Instrumentalist(Guitar) & Vocalist', image: pic3 },
   { name: 'Riya', role: 'Vocalist & Event Curator' ,image:pic4 },
   { name: 'Abhinav', role: 'Instrumentalist(Guitar) & Outreach Coordinator', image: pic },
   { name: 'Avani', role: 'Vocalist & Event Curator', image: pic2 },
   { name: 'Navonil', role: 'Vocalist, Community Builder & Performer',image:navonil },
+  {name:'Monoswini', role:'Instrumentalist(Guitar) & Outreach Coordinator',image:mono}
   
 ];
 
@@ -68,7 +69,7 @@ export function SwarHomePage() {
                 <img
                   src={person.image}
                   alt={person.name}
-                  className="w-24 h-24 mx-auto rounded-full object-cover mb-4"
+                  className="w-24 h-30 mx-auto rounded-full object-cover mb-4"
                 />
               )}
               <h3 className="text-xl font-semibold mb-2">{person.name}</h3>
