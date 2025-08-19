@@ -64,7 +64,7 @@ const send = async (e) => {
   try {
     setisverifing(true);
     const res = await axios.post('https://swarbackend.onrender.com/verify', {
-      code });
+      code ,email:formData.email});
       alert(res.data.text);
     
     setFormData({
