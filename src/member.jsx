@@ -83,6 +83,9 @@ const send = async (e) => {
     if(res.data.code===1){
       setSubmitted(true);
     }
+    else{
+      setSubmitted(false);
+    }
     
     
 
