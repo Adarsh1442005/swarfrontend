@@ -49,6 +49,7 @@ export const MessagesTable = () => {
                 <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-100">{msg.year}</td>
                 <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-100">{msg.message}</td>
                 <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-100">{msg.email}</td>
+                 <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-100">{msg.contact}</td>
               </tr>
             ))}
           </tbody>
