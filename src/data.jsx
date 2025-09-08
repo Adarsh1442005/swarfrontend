@@ -28,7 +28,7 @@ export const MessagesTable = () => {
         <table className="min-w-full border border-gray-300 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-100 dark:bg-gray-800">
             <tr>
-              {['Name', 'Branch', 'Year', 'Message', 'Email'].map((heading, idx) => (
+              {['Name', 'Branch', 'Year', 'Message', 'Email','contact NO'].map((heading, idx) => (
                 <th
                   key={idx}
                   className="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
