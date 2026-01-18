@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import bgImage from './music.jpg';
 import axios from 'axios';
+
 export function MembershipForm() {
-    const style = {
+  const style = {
     backgroundImage: `url(${bgImage})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    height: "100vh",
+    minHeight: "100vh",
     color: "white",
   };
 
@@ -14,205 +15,151 @@ export function MembershipForm() {
     name: '',
     email: '',
     instrument: '',
-    Branch:'',
-    year:'',
-    contact:'',
+    Branch: '',
+    year: '',
+    contact: '',
     message: '',
-    
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [code, setCode] = useState('');
-const [awaitingOtp, setAwaitingOtp] = useState(false);
-const[isloading,setisloading]=useState(false);
-const[isverifing,setisverifing]=useState(false);
-
+  const [awaitingOtp, setAwaitingOtp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-const send = async (e) => {
-  e.preventDefault();
-  setisloading(true);
-  try {
-    const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
-    if (response.data.code === 1) {
-      setAwaitingOtp(true); // Show OTP input
-      alert("please enter the otp !!!");
-    } else if (response.data.code === 0) {
-      alert("User already exists your credential we have already contact to the owner for further changes!!");
-      setisloading(false);
-       setFormData({
-    name: '',
-    email: '',
-    instrument: '',
-    contact:'',
-    year:'',
-    Branch:'',
-    message: '',
-    
-  });
+
+  const send = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await axios.post('https://swarbackend.onrender.com/membership', formData);
+      if (response.data.code === 1) {
+        setAwaitingOtp(true);
+        alert("Please enter the OTP sent to your email!");
+      } else if (response.data.code === 0) {
+        alert("User already exists. We've contacted the owner for further changes.");
+        setIsLoading(false);
+        setFormData({
+          name: '',
+          email: '',
+          instrument: '',
+          contact: '',
+          year: '',
+          Branch: '',
+          message: '',
+        });
+      }
+    } catch (error) {
+      console.error('Submission failed:', error.message);
+      alert("❌ Submission failed. Please try again.");
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error('Submission failed:', error.message);
-  }
-};
-
-
+  };
 
   const verifyOtp = async () => {
-  try {
-    setisverifing(true);
-    const res = await axios.post('https://swarbackend.onrender.com/verify', {
-      code ,email:formData.email});
+    try {
+      setIsVerifying(true);
+      const res = await axios.post('https://swarbackend.onrender.com/verify', {
+        code,
+        email: formData.email,
+      });
       alert(res.data.text);
-    
-    setFormData({
-      name: '',
-      email: '',
-      instrument: '',
-      contact: '',
-      year: '',
-      Branch: '',
-      message: '',
-    });
-    setisverifing(false);
-    setisloading(false);
-    
-    setAwaitingOtp(false);
-    if(res.data.code===1){
-      setSubmitted(true);
-    }
-    else{
-      setSubmitted(false);
-    }
-    
-    
 
-    setCode('');
-  } catch (error) {
-    alert("OTP verification failed. Please try again.");
-  }
-};
-  
+      setFormData({
+        name: '',
+        email: '',
+        instrument: '',
+        contact: '',
+        year: '',
+        Branch: '',
+        message: '',
+      });
+      setIsVerifying(false);
+      setIsLoading(false);
+      setAwaitingOtp(false);
+
+      if (res.data.code === 1) {
+        setSubmitted(true);
+      } else {
+        setSubmitted(false);
+      }
+
+      setCode('');
+    } catch (error) {
+      alert("OTP verification failed. Please try again.");
+      setIsVerifying(false);
+    }
+  };
 
   return (
-    <div className="flex flex-row space-x-30">
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-pink-100 to-yellow-100 px-6 py-12">
-      <form
-        onSubmit={send}
-        className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-xl border border-purple-300 animate-fade-in"
-      >
-        <h2 className="text-4xl font-extrabold mb-6 text-center text-purple-700 tracking-tight">
-          🎶 Join Swar Music Society
-        </h2>
-
-        {submitted && (
-          <div className="mb-6 text-green-600 font-semibold text-center">
-            ✅ Thank you for joining! We'll be in touch soon.
-          </div>
-        )}
-
-        <div className="space-y-5">
-  <InputField
-    label="🎤 Full Name"
-    name="name"
-    value={formData.name}
-    onChange={handleChange}
-    required
-  />
-  <InputField
-    label="📧 Email Address"
-    name="email"
-    type="email"
-    value={formData.email}
-    onChange={handleChange}
-    required
-  />
-  <InputField
-    label="📞 Contact Number"
-    name="contact"
-    type="tel"
-    value={formData.contact}
-    onChange={handleChange}
-    required
-  />
-  <InputField
-    label="🏫 Branch"
-    name="Branch"
-    type="text"
-    value={formData.Branch}
-    onChange={handleChange}
-    required
-  />
-  <InputField
-    label="📅 Year of Study"
-    name="year"
-    type="text"
-    value={formData.year}
-    onChange={handleChange}
-    required
-  />
-  <InputField
-    label="🎸 Primary Instrument / Role"
-    name="instrument"
-    value={formData.instrument}
-    onChange={handleChange}
-    required
-  />
-  <TextAreaField
-    label="💬 Why do you want to join Swar?"
-    name="message"
-    value={formData.message}
-    onChange={handleChange}
-  />
-</div>
-
-        <button
-          type="submit"
-          className="mt-8 w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 hover:shadow-lg transition duration-300"
+    <div style={style} className="flex items-center justify-center px-6 py-12">
+      {!awaitingOtp ? (
+        <form
+          onSubmit={send}
+          className="bg-gray-900 text-gray-200 shadow-2xl rounded-2xl p-10 w-full max-w-xl border border-pink-500 backdrop-blur-md animate-fade-in"
         >
-          {isloading ?"submitting...":"submit"}
-        </button>
-      </form>
-    </section>
-    {awaitingOtp && (
-  <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-pink-100 to-yellow-100 px-6 py-12">
-    <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border border-purple-300 animate-fade-in">
-      <h3 className="text-2xl font-bold text-purple-700 mb-4 text-center"> OTP Verification</h3>
-      <p className="text-gray-600 mb-6 text-center">
-        We've sent a verification code to your email. Please enter it below to complete your registration.
-      </p>
+          <h2 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 tracking-tight">
+            🎶 Join Swar Music Society
+          </h2>
 
-      <input
-        type="text"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        placeholder="Enter OTP"
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-purple-50 mb-4"
-      />
+          {submitted && (
+            <div className="mb-6 text-green-400 font-semibold text-center">
+              ✅ Thank you for joining! We'll be in touch soon.
+            </div>
+          )}
 
-      <button
-        type="button"
-        onClick={verifyOtp}
-        className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold py-3 rounded-xl hover:scale-105 hover:shadow-lg transition duration-300"
-      >
-      {isverifing?"verifing...":"verify"}
-      </button>
+          <div className="space-y-5">
+            <InputField label="🎤 Full Name" name="name" value={formData.name} onChange={handleChange} required />
+            <InputField label="📧 Email Address" name="email" type="email" value={formData.email} onChange={handleChange} required />
+            <InputField label="📞 Contact Number" name="contact" type="tel" value={formData.contact} onChange={handleChange} required />
+            <InputField label="🏫 Branch" name="Branch" type="text" value={formData.Branch} onChange={handleChange} required />
+            <InputField label="📅 Year of Study" name="year" type="text" value={formData.year} onChange={handleChange} required />
+            <InputField label="🎸 Primary Instrument / Role" name="instrument" value={formData.instrument} onChange={handleChange} required />
+            <TextAreaField label="💬 Why do you want to join Swar?" name="message" value={formData.message} onChange={handleChange} />
+          </div>
+
+          <button
+            type="submit"
+            className="mt-8 w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:scale-105 hover:shadow-lg transition duration-300"
+          >
+            {isLoading ? "Submitting..." : "Submit"}
+          </button>
+        </form>
+      ) : (
+        <div className="bg-gray-900 text-gray-200 shadow-2xl rounded-2xl p-8 w-full max-w-md border border-purple-500 backdrop-blur-md animate-fade-in">
+          <h3 className="text-2xl font-bold text-pink-400 mb-4 text-center">🔐 OTP Verification</h3>
+          <p className="text-gray-400 mb-6 text-center">
+            We've sent a verification code to your email. Please enter it below to complete your registration.
+          </p>
+
+          <input
+            type="text"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="Enter OTP"
+            className="w-full border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 bg-gray-800 mb-4 text-gray-200"
+          />
+
+          <button
+            type="button"
+            onClick={verifyOtp}
+            className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:scale-105 hover:shadow-lg transition duration-300"
+          >
+            {isVerifying ? "Verifying..." : "Verify"}
+          </button>
+        </div>
+      )}
     </div>
-  </section>
-)}
-   
-    </div>
-
-       
   );
 }
 
 function InputField({ label, name, value, onChange, type = 'text', required = false }) {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1 text-gray-700" htmlFor={name}>
+      <label className="block text-sm font-medium mb-1 text-pink-400" htmlFor={name}>
         {label}
       </label>
       <input
@@ -222,7 +169,7 @@ function InputField({ label, name, value, onChange, type = 'text', required = fa
         required={required}
         value={value}
         onChange={onChange}
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-purple-50"
+        className="w-full border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 bg-gray-800 text-gray-200"
       />
     </div>
   );
@@ -231,7 +178,7 @@ function InputField({ label, name, value, onChange, type = 'text', required = fa
 function TextAreaField({ label, name, value, onChange }) {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1 text-gray-700" htmlFor={name}>
+      <label className="block text-sm font-medium mb-1 text-pink-400" htmlFor={name}>
         {label}
       </label>
       <textarea
@@ -240,7 +187,7 @@ function TextAreaField({ label, name, value, onChange }) {
         rows="4"
         value={value}
         onChange={onChange}
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-purple-50"
+        className="w-full border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 bg-gray-800 text-gray-200"
       />
     </div>
   );
