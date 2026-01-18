@@ -10,7 +10,7 @@ import { Audioadmin } from './audioadminlogin.jsx';
 
 export function App() {
   return (
-    <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<SwarHomePage />} />
         <Route path="/membership" element={<MembershipForm />} />
@@ -21,6 +21,6 @@ export function App() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/adminb" element={<Audioadmin />} />
       </Routes>
-    </BrowserRouter>
+  
   );
 }
