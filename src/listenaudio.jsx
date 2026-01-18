@@ -7,7 +7,7 @@ export const AudioPlayer = () => {
 
   const handlePlay = async () => {
     if (!filename.trim()) {
-      setError('Please enter a filename.');
+      setError('⚠️ Please enter a filename.');
       setAudioSrc('');
       return;
     }
@@ -20,18 +20,20 @@ export const AudioPlayer = () => {
         setAudioSrc(url);
         setError('');
       } else {
-        setError('File not found.');
+        setError('❌ File not found.');
         setAudioSrc('');
       }
     } catch {
-      setError('Error connecting to server.');
+      setError('🚫 Error connecting to server.');
       setAudioSrc('');
     }
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto mt-10">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">🎧 Play Uploaded Audio</h2>
+    <div className="bg-black text-gray-200 shadow-xl rounded-xl p-6 max-w-md mx-auto mt-12 border border-gray-800 backdrop-blur-md">
+      <h2 className="text-2xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
+        🎧 Play Uploaded Audio
+      </h2>
 
       <div className="flex space-x-2 mb-4">
         <input
@@ -39,20 +41,28 @@ export const AudioPlayer = () => {
           value={filename}
           onChange={(e) => setFilename(e.target.value)}
           placeholder="Enter filename (e.g. track.wav)"
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-500 placeholder-gray-500"
         />
         <button
           onClick={handlePlay}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          className="px-5 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg font-semibold hover:scale-105 transition transform shadow-lg"
         >
-          Play
+          ▶ Play
         </button>
       </div>
 
-      {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
+      {error && (
+        <div className="text-red-400 text-sm mb-3 text-center font-medium">
+          {error}
+        </div>
+      )}
 
       {audioSrc && (
-        <audio controls src={audioSrc} className="w-full mt-2 rounded-md bg-gray-200" />
+        <audio
+          controls
+          src={audioSrc}
+          className="w-full mt-4 rounded-lg bg-gray-800 p-2 shadow-lg"
+        />
       )}
     </div>
   );
